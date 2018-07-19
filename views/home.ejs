@@ -5,5 +5,12 @@
 </head>
 <body>
   <h1>Welcome to the site</h1>
+
+  <% if (theNumber == undefined) { -%>
+    <h2>WTF are you trying to do</h2>
+  <% } else { -%>
+    <h2>You are on page number <%= theNumber %></h2>
+  <% } -%>
+
 </body>
 </html>

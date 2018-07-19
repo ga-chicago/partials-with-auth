@@ -7,8 +7,14 @@ const app = express();
 // review sessions
 // review bcrypt/logging in
 
+
+// controllers
+const siteController = require('./controllers/siteController');
+app.use('/site', siteController)
+
+
 app.get('/', (req, res) => {
-  res.render('home.ejs')
+  res.render('home.ejs', { theNumber: undefined })
 })
 
 
