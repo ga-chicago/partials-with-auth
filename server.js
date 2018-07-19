@@ -16,6 +16,7 @@ require('./db/db')
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }))
 
+
 // controllers
 const siteController = require('./controllers/siteController');
 app.use('/site', siteController)

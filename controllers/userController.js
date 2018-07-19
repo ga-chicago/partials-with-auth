@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user')
+const bcrypt = require('bcrypt')
 
 router.get('/login', (req, res) => {
   res.render('login.ejs');
@@ -16,7 +17,7 @@ router.post('/register', async (req, res, next) => {
     // create a user on the site
     const createdUser = await User.create({
       username: req.body.username,
-      password: req.body.password
+      password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     })
     res.json(createdUser);
   } 
