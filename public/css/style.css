@@ -1,3 +1,22 @@
 body {
   background-color: orange;
 }
+header {
+  width: 100%;
+}
+header nav:first-child {
+  width: 47%;
+  display: inline-block;
+}
+header nav:last-child {
+  width: 47%;
+  display: inline-block;
+  text-align: right;
+}
+nav {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+footer {
+  margin-top: 20px;
+}
