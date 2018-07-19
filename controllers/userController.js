@@ -9,8 +9,18 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
   res.render('register.ejs');
 })
-router.post('/login', (req, res) => {
-  res.json(req.body);
+router.post('/login', async (req, res, next) => {
+  try {
+    const foundUser = await User.findOne({ username: req.body.username })
+    if(foundUser) {
+      if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+        res.send("welcome back, " + foundUser.username)
+      } else res.send('Invalid username or password.');
+    } else res.send('Invalid username or password.');
+  }
+  catch (err) {
+    next(err)
+  }
 })
 router.post('/register', async (req, res, next) => {
   try {
