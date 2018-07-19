@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
+
+  <%- include('partials/header'); -%>
+
   <h1>Welcome to the site</h1>
 
   <% if (theNumber == undefined) { -%>
@@ -12,5 +9,4 @@
     <h2>You are on page number <%= theNumber %></h2>
   <% } -%>
 
-</body>
-</html>
+  <%- include('partials/footer'); -%>

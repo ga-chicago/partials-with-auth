@@ -1,11 +1,16 @@
 const express = require('express');
 const app = express();
 
-// partials
-// review params
+// partials done
+// review params done 
+// review static assets
 // review mongoose
 // review sessions
 // review bcrypt/logging in
+
+
+// middleware
+app.use(express.static('public'));
 
 
 // controllers
