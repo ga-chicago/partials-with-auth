@@ -30,12 +30,18 @@ footer {
 .message.bad {
   border-color: red;
   background-color: pink;
+  color: red;
 }
 .message.good {
   border-color: green;
   background-color: lightgreen;
+  color: green;
 }
 form.login-register {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+.copyleft { /* https://stackoverflow.com/a/37088346/5924190 */
+  display: inline-block;
+  transform: rotate(180deg);
 }
