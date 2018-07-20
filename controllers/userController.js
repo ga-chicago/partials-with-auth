@@ -5,20 +5,26 @@ const bcrypt = require('bcrypt')
 
 router.get('/login', (req, res) => {
   if(req.session.loggedIn) {
-    req.session.message = "You are already logged in."
+    req.session.message = "You are already logged in.",
+    req.session.messageClass = null;
     res.redirect('/site/0');
   }
   else {
     const message = req.session.message;
     req.session.message = null;
+    const messageClass = req.session.messageClass;
+    req.session.messageClass = null;
     res.render('login.ejs', {
-      message: message
+      message: message,
+      messageClass: messageClass
     }); 
   }
 })
+
 router.get('/register', (req, res) => {
   res.render('register.ejs');
 })
+
 router.post('/login', async (req, res, next) => {
   try {
     const foundUser = await User.findOne({ username: req.body.username })
@@ -26,16 +32,19 @@ router.post('/login', async (req, res, next) => {
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
         req.session.loggedIn = true;
         req.session.message = "You are logged in as " + foundUser.username;
+        req.session.messageClass = "good";
         res.redirect('/site/0')
 
       } else {
         console.log("bad password");
         req.session.message = "Invalid username or password.";
+        req.session.messageClass = "bad";
         res.redirect('/user/login')
       }
     } else {
       console.log("username not found")
       req.session.message = "Invalid username or password.";
+      req.session.messageClass = "bad";
       res.redirect('/user/login');
     }
   }

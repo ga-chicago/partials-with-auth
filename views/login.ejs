@@ -2,7 +2,7 @@
   <%- include('partials/header'); -%>
 
   <% if (message) { -%>
-    <div class="message"><%= message %></div>
+    <div class="message <%= messageClass %>"><%= message %></div>
   <% } -%>
 
   <form method="POST" action="/user/login" class="login-register">
