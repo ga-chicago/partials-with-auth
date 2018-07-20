@@ -4,7 +4,17 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
 router.get('/login', (req, res) => {
-  res.render('login.ejs');
+  if(req.session.loggedIn) {
+    req.session.message = "You are already logged in."
+    res.redirect('/site/0');
+  }
+  else {
+    const message = req.session.message;
+    req.session.message = null;
+    res.render('login.ejs', {
+      message: message
+    }); 
+  }
 })
 router.get('/register', (req, res) => {
   res.render('register.ejs');
@@ -14,9 +24,20 @@ router.post('/login', async (req, res, next) => {
     const foundUser = await User.findOne({ username: req.body.username })
     if(foundUser) {
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-        res.send("welcome back, " + foundUser.username)
-      } else res.send('Invalid username or password.');
-    } else res.send('Invalid username or password.');
+        req.session.loggedIn = true;
+        req.session.message = "You are logged in as " + foundUser.username;
+        res.redirect('/site/0')
+
+      } else {
+        console.log("bad password");
+        req.session.message = "Invalid username or password.";
+        res.redirect('/user/login')
+      }
+    } else {
+      console.log("username not found")
+      req.session.message = "Invalid username or password.";
+      res.redirect('/user/login');
+    }
   }
   catch (err) {
     next(err)
@@ -36,7 +57,9 @@ router.post('/register', async (req, res, next) => {
   }
 })
 router.get('/logout', (req, res) => {
-  res.send('have a nice day');
+  req.session.loggedIn = false; 
+  req.session.message = "You are logged out.  Thanks for visiting."
+  res.redirect('/user/login')
 })
 
 

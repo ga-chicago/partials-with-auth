@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session')
 
 // partials done
 // review params done 
@@ -15,7 +16,11 @@ require('./db/db')
 // middleware
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(session({
+  secret: "fascism is bad", // you may want to .gitignore this and import it (check out Dotenv)
+  resave: false, // don't update cookie unless req.session has changed
+  saveUninitialized: false // legally you can't track user until they log in
+}))
 
 // controllers
 const siteController = require('./controllers/siteController');
@@ -25,7 +30,7 @@ app.use('/user', userController)
 
 
 app.get('/', (req, res) => {
-  res.render('home.ejs', { theNumber: undefined })
+  res.redirect('/site/0')
 })
 
 

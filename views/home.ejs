@@ -3,6 +3,10 @@
 
   <h1>Welcome to the site</h1>
 
+  <% if (message) { -%>
+    <div class="message"><%= message %></div>
+  <% } -%>
+
   <% if (theNumber == undefined) { -%>
     <h2>WTF are you trying to do</h2>
   <% } else { -%>
