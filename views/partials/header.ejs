@@ -13,9 +13,22 @@
     <a href="/site/777">page 777</a>
   </nav>
   <nav>
-    <a href="/user/login">Login</a>
-    <a href="/user/logout">Logout</a>
-
+      <% 
+        try{
+          if (loggedIn) { 
+            -%>
+              Logged in as: <%= username %>
+              (<a href="/user/logout">Logout</a>)      
+            <% 
+          } 
+        }
+        catch (err) {
+          -%>
+            <a href="/user/login">Login</a> or 
+            <a href="/user/register">Register</a>. 
+          <% 
+        } 
+      -%>
   </nav>
 </header>
 

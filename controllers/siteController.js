@@ -23,7 +23,9 @@ router.get('/:id', (req, res) => {
   res.render('home.ejs', { 
     theNumber: req.params.id, 
     message: message,
-    messageClass: messageClass
+    messageClass: messageClass,
+    loggedIn: req.session.loggedIn,
+    username: req.session.username
   })
 })
 

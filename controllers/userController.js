@@ -31,6 +31,7 @@ router.post('/login', async (req, res, next) => {
     if(foundUser) {
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
         req.session.loggedIn = true;
+        req.session.username = foundUser.username;
         req.session.message = "You are logged in as " + foundUser.username;
         req.session.messageClass = "good";
         res.redirect('/site/0')
@@ -52,6 +53,7 @@ router.post('/login', async (req, res, next) => {
     next(err)
   }
 })
+
 router.post('/register', async (req, res, next) => {
   try {
     // create a user on the site
@@ -59,14 +61,19 @@ router.post('/register', async (req, res, next) => {
       username: req.body.username,
       password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     })
-    res.json(createdUser);
+    req.session.message = "Thanks for signing up, " + createdUser.username + " !";
+    req.session.loggedIn = true;
+    req.session.username = createdUser.username;
+    res.redirect('/site/0')
   } 
   catch (err) {
     next(err);
   }
 })
+
 router.get('/logout', (req, res) => {
-  req.session.loggedIn = false; 
+  req.session.loggedIn = false;
+  req.session.username = null;
   req.session.message = "You are logged out.  Thanks for visiting."
   res.redirect('/user/login')
 })

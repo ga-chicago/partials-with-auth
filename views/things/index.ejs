@@ -1,0 +1,15 @@
+  <%- include('../partials/header'); -%>
+
+  <ul>
+    <% for (var i = 0; i < things.length; i++) { -%>
+      <LI>
+        <%=things[i].title%>
+      </LI>    
+    <% } -%>
+  </ul>
+  <form action="/things" method="POST">
+    <input type="text" name="title">    
+    <button>Add it</button>
+  </form>
+
+  <%- include('../partials/footer'); -%>

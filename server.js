@@ -27,6 +27,8 @@ const siteController = require('./controllers/siteController');
 app.use('/site', siteController)
 const userController = require('./controllers/userController');
 app.use('/user', userController)
+const thingController = require('./controllers/thingController');
+app.use('/things', thingController)
 
 
 app.get('/', (req, res) => {

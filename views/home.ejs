@@ -4,7 +4,7 @@
   <h1>Welcome to the site</h1>
 
   <% if (message) { -%>
-    <div class="message <%=messageClass%>"><%= message %></div>
+    <div class="message <%=messageClass%>"><%- message %></div>
   <% } -%>
 
   <% if (theNumber == undefined) { -%>
